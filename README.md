@@ -15,7 +15,19 @@ Sonnet 5.5 │ 5h 32% │ Week 18%
   - 用 API key 登入時沒有用量資料，只會顯示模型名稱
   - 每個 session 要等第一次 API 回應後，才會出現 5h / Week 數字
 
-## 安裝
+## 安裝（一鍵）
+
+在這個資料夾打開 PowerShell，執行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+```
+
+它會把 `statusline.ps1` 複製到 `~\.claude\`，並把 `statusLine` 合併進 `~\.claude\settings.json`（其他設定保留；原本的 `settings.json` 會先備份成 `settings.json.bak`）。完成後重開 Claude Code。
+
+重複執行是安全的。
+
+## 安裝（手動）
 
 1. 把 `statusline.ps1` 複製到 `C:\Users\<你的使用者名稱>\.claude\statusline.ps1`
 2. 打開 `C:\Users\<你的使用者名稱>\.claude\settings.json`，加入 `statusLine`
@@ -24,7 +36,7 @@ Sonnet 5.5 │ 5h 32% │ Week 18%
    ```json
    "statusLine": {
      "type": "command",
-     "command": "powershell -NoProfile -File C:/Users/<你的使用者名稱>/.claude/statusline.ps1"
+     "command": "powershell -NoProfile -ExecutionPolicy Bypass -File C:/Users/<你的使用者名稱>/.claude/statusline.ps1"
    }
    ```
 
@@ -36,7 +48,7 @@ Sonnet 5.5 │ 5h 32% │ Week 18%
 不用開 Claude Code，直接餵假資料：
 
 ```powershell
-'{"model":{"display_name":"Sonnet 5.5"},"rate_limits":{"five_hour":{"used_percentage":68.2},"seven_day":{"used_percentage":82.4}}}' | powershell -NoProfile -File .\statusline.ps1
+'{"model":{"display_name":"Sonnet 5.5"},"rate_limits":{"five_hour":{"used_percentage":68.2},"seven_day":{"used_percentage":82.4}}}' | powershell -NoProfile -ExecutionPolicy Bypass -File .\statusline.ps1
 ```
 
 應該印出 `Sonnet 5.5 │ 5h 32% │ Week 18%`。
